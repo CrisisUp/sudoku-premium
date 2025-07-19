@@ -1,0 +1,72 @@
+/* Estilos para todos os botões, incluindo os botões numéricos */
+button {
+    padding: var(--space-xs) var(--space-sm);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    background-color: var(--primary);
+    color: var(--on-primary);
+    cursor: pointer;
+    transition:
+        background-color var(--transition-medium),
+        box-shadow var(--transition-medium),
+        transform var(--transition-short);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    min-height: 40px;
+}
+
+button:hover {
+    background-color: color-mix(in srgb, var(--primary) 90%, black);
+    box-shadow: var(--elevation-1);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+button:focus-visible {
+    outline: 2px solid var(--primary-container);
+    outline-offset: 2px;
+}
+
+button.secondary {
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
+}
+
+button.secondary:hover {
+    background-color: color-mix(in srgb, var(--secondary-container) 90%, black);
+}
+
+button.tertiary {
+    background-color: transparent;
+    color: var(--primary);
+}
+
+button.tertiary:hover {
+    background-color: color-mix(in srgb, var(--primary-container) 10%, transparent);
+}
+
+.number-btn {
+    min-width: 44px;
+    min-height: 44px;
+    aspect-ratio: 1;
+    font-size: 1.125rem;
+    font-weight: 500;
+    background-color: var(--surface);
+    color: var(--on-surface);
+    border-radius: var(--border-radius-sm);
+    transition:
+        background-color var(--transition-medium),
+        transform var(--transition-short);
+}
+
+.number-btn:hover {
+    background-color: color-mix(in srgb, var(--surface) 90%, var(--primary-container));
+    transform: translateY(-2px);
+}
+
+.number-btn:active {
+    transform: translateY(0);
+}

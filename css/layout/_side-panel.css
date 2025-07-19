@@ -1,0 +1,98 @@
+/* Estilos para o painel lateral e suas seções */
+.side-panel {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.number-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xs);
+    background-color: var(--surface-variant);
+    padding: var(--space-sm);
+    border-radius: var(--border-radius-md);
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.game-info {
+    background-color: var(--surface-variant);
+    padding: var(--space-sm);
+    border-radius: var(--border-radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.timer {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--on-surface);
+    text-align: center;
+}
+
+.message {
+    font-size: 0.875rem;
+    text-align: center;
+    padding: var(--space-xs);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--tertiary-container);
+    color: var(--on-tertiary-container);
+}
+
+.message.error {
+    background-color: var(--error-container);
+    color: var(--on-error-container);
+}
+
+.message.success {
+    background-color: color-mix(in srgb, var(--primary-container) 80%, transparent);
+    color: var(--on-primary-container);
+}
+
+.hints {
+    display: flex;
+    gap: var(--space-xs);
+    justify-content: center;
+}
+
+.hint {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--outline);
+    opacity: 0.5;
+    transition: opacity var(--transition-medium);
+}
+
+.hint.active {
+    background-color: var(--primary);
+    opacity: 1;
+}
+
+@media (max-width: 1200px) {
+    .side-panel {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .number-pad {
+        order: 2;
+        flex-grow: 1;
+    }
+
+    .game-info {
+        flex-grow: 1;
+    }
+
+    .action-buttons {
+        flex-direction: row;
+    }
+}

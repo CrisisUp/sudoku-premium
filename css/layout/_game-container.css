@@ -1,0 +1,49 @@
+/* Estilos para o contêiner principal do jogo e cabeçalho */
+.game-container {
+    width: 90vw;
+    max-width: 1200px;
+    height: auto;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--elevation-2);
+    overflow: hidden;
+    padding: var(--space-md);
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--surface-variant);
+}
+
+.controls {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+.main-content {
+    display: flex;
+    flex: 1;
+    gap: var(--space-md);
+}
+
+@media (max-width: 1200px) {
+    .game-container {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        border-radius: 0;
+    }
+
+    .main-content {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,22 @@
+/* Estilos para o elemento select */
+select {
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--outline);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--surface);
+    color: var(--on-surface);
+    cursor: pointer;
+    transition:
+        border-color var(--transition-medium),
+        box-shadow var(--transition-medium);
+}
+
+select:hover {
+    border-color: var(--primary);
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-container);
+}

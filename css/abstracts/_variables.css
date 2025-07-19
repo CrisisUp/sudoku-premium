@@ -1,0 +1,32 @@
+/* Variáveis globais para cores, espaçamentos, bordas, transições, elevação */
+:root { /* Mova a definição padrão de todas as variáveis para cá */
+    /* Cores específicas para o Sudoku (nomes de variáveis, não os valores diretos) */
+    --cell-given: var(--on-background);
+    --cell-user: var(--primary);
+    --cell-error: var(--error);
+    --cell-selected: var(--primary-container);
+    --cell-highlighted: #FFF8E1; /* Este valor ainda será sobrescrito pelo tema escuro */
+    --block-border: var(--outline);
+    --cell-border: var(--surface-variant);
+
+    /* Espaçamentos */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+
+    /* Bordas */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+
+    /* Elevação */
+    --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+    --elevation-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+
+    /* Transições */
+    --transition-short: 100ms;
+    --transition-medium: 200ms;
+    --transition-long: 300ms;
+}

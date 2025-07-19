@@ -1,0 +1,168 @@
+/* css/pages/_home.css */
+
+/* ... seu CSS existente para home-container, hero-section, cta-button, etc. ... */
+
+/* Estilos para a seção que agrupa os cards (opcional, para layout) */
+.card-section {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os cards quebrem a linha */
+    justify-content: center; /* Centraliza os cards */
+    gap: var(--space-md); /* Espaço entre os cards */
+    width: 100%;
+}
+
+/* Estilos para o Card */
+.card {
+    background-color: var(--surface-variant); /* Uma cor de fundo que destaque o card */
+    color: var(--on-surface-variant); /* Cor de texto para o card */
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--elevation-1); /* Sombreamento sutil para dar profundidade */
+    padding: var(--space-lg);
+    flex: 1; /* Permite que os cards cresçam e ocupem o espaço disponível */
+    min-width: 280px; /* Largura mínima antes de quebrar a linha */
+    max-width: 400px; /* Largura máxima para legibilidade em telas grandes */
+    text-align: left; /* Alinhamento de texto dentro do card */
+    display: flex; /* Para centralizar o conteúdo verticalmente se necessário */
+    flex-direction: column;
+    justify-content: flex-start; /* Alinha o conteúdo ao topo */
+}
+
+.card h2 {
+    font-size: 1.6rem; /* Título do card */
+    font-weight: 600;
+    color: var(--on-surface); /* Título do card com cor de destaque */
+    margin-bottom: var(--space-md);
+    text-align: center; /* Centraliza o título dentro do card */
+}
+
+.card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: var(--space-sm);
+}
+
+.card ul {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-md);
+}
+
+.card li {
+    font-size: 1rem;
+    margin-bottom: var(--space-xs);
+    position: relative;
+    padding-left: var(--space-md);
+}
+
+/* Reajuste para o marcador personalizado nos cards */
+.card li::before {
+    content: '→'; /* Um ícone diferente para o card, se quiser */
+    color: var(--primary);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Botões de Chamada para Ação (CTA Buttons) - ESTILOS ATUALIZADOS */
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-sm) var(--space-lg); /* Mantendo o padding */
+    border-radius: var(--border-radius-md);
+    background-color: var(--primary);
+    color: var(--on-primary);
+    text-decoration: none;
+    font-weight: 600; /* Mantendo o peso da fonte */
+    font-size: 1.1rem; /* Aumentando um pouco o tamanho da fonte */
+    letter-spacing: 0.5px;
+    transition: background-color var(--transition-medium), transform var(--transition-short), box-shadow var(--transition-medium), border-color var(--transition-medium); /* Adicionando transição para border-color */
+    box-shadow: var(--elevation-1);
+    min-height: 48px;
+    border: 1px solid transparent; /* Adicionando uma borda transparente inicialmente */
+}
+
+.cta-button:hover {
+    background-color: color-mix(in srgb, var(--primary) 80%, black); /* Ligeiramente mais escuro no hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada no hover */
+    border-color: var(--primary-container); /* Adicionando uma borda sutil no hover */
+}
+
+.cta-button:active {
+    transform: translateY(0);
+    box-shadow: var(--elevation-1); /* Retorna a sombra original ao clicar */
+}
+
+.cta-button.secondary {
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
+    margin-top: var(--space-md);
+    border: 1px solid transparent;
+}
+
+.cta-button.secondary:hover {
+    background-color: color-mix(in srgb, var(--secondary-container) 80%, black);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    border-color: var(--secondary);
+}
+
+
+/* Remova os estilos antigos para .history-section e .features-section se eles estiverem dentro dos cards */
+/* .history-section, .features-section {
+    padding: var(--space-md) 0;
+    line-height: 1.6;
+}
+.history-section h2, .features-section h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--on-surface);
+    margin-bottom: var(--space-md);
+}
+.history-section p, .features-section p {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+    color: var(--on-background);
+}
+.features-section ul {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    align-items: center;
+}
+.features-section li {
+    font-size: 1.05rem;
+    color: var(--on-background);
+    position: relative;
+    padding-left: var(--space-md);
+}
+.features-section li::before {
+    content: '•';
+    color: var(--primary);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+*/
+
+
+/* Responsividade para telas menores: ajuste dos cards */
+@media (max-width: 768px) {
+    .card-section {
+        flex-direction: column; /* Cards se empilham em telas pequenas */
+        gap: var(--space-lg); /* Mais espaço entre cards empilhados */
+    }
+
+    .card {
+        max-width: 100%; /* Ocupa a largura total disponível */
+        padding: var(--space-md); /* Reduz padding */
+    }
+
+    .card h2 {
+        font-size: 1.4rem;
+    }
+}

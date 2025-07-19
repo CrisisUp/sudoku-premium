@@ -1,0 +1,107 @@
+/* Estilos para o grid do Sudoku e suas células */
+.sudoku-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    gap: 1px;
+    background-color: var(--block-border);
+    border: 2px solid var(--block-border);
+    width: 100%;
+    height: 100%;
+    max-width: 500px; /* Considerar revisar esta max-width/height */
+    max-height: 500px; /* Considerar revisar esta max-width/height */
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--surface);
+    font-size: 1.5rem;
+    font-weight: 400;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color var(--transition-medium);
+    position: relative;
+}
+
+/* Separadores horizontais entre blocos */
+.cell:nth-child(n+28):nth-child(-n+36),
+.cell:nth-child(n+55):nth-child(-n+63) {
+  border-top: 2px solid var(--block-border);
+}
+
+.cell:nth-child(9n+4),
+.cell:nth-child(9n+7) {
+    border-left: 2px solid var(--block-border);
+}
+
+.cell:hover {
+    background-color: color-mix(in srgb, var(--surface) 95%, var(--primary-container));
+}
+
+.cell.given {
+    color: var(--cell-given);
+    font-weight: 500;
+}
+
+.cell.user-input {
+    color: var(--cell-user);
+    font-weight: 400;
+}
+
+.cell.error {
+    color: var(--cell-error);
+}
+
+.cell.selected {
+    background-color: var(--cell-selected);
+}
+
+.cell.highlighted {
+    background-color: var(--cell-highlighted);
+}
+
+/* Border styling for 3x3 blocks */
+.cell:nth-child(3n) {
+    border-right: 2px solid var(--block-border);
+}
+
+.cell:nth-child(9n) {
+    border-right: none;
+}
+
+.row-divider {
+    border-bottom: 2px solid var(--block-border);
+}
+
+/* Acessibilidade: foco visível */
+.cell:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+    z-index: 1;
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sudoku-grid {
+    animation: fadeIn var(--transition-long) ease-out;
+}

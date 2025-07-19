@@ -1,0 +1,30 @@
+/* css/base.css */
+
+/* 1. Abstracts (Variáveis, Mixins) */
+@import url("./abstracts/_variables.css");
+
+/* 2. Base (Reset, Tipografia, Elementos HTML padrão) */
+@import url("./base/_reset.css");
+@import url("./base/_typography.css");
+
+/* 3. Layout (Estrutura principal da página) */
+@import url("./layout/_game-container.css");
+@import url("./layout/_sudoku-grid.css");
+@import url("./layout/_side-panel.css");
+
+/* 4. Components (Elementos reutilizáveis menores) */
+@import url("./components/_buttons.css");
+@import url("./components/_select.css");
+@import url("./components/_theme-toggle.css");
+
+/* 5. Pages (Estilos específicos de página, se aplicável) */
+/* @import url("./pages/_home.css"); */
+
+/* 6. Utilities (Classes utilitárias/helpers) */
+/* @import url("./utilities/_helpers.css"); */
+
+/* NOTA: Os arquivos de tema (theme-light.css e theme-dark.css)
+   DEVEM ser linkados diretamente no seu HTML, após este base.css,
+   para que as variáveis de tema possam sobrescrever as do base.css.
+   Eles NÃO são importados aqui.
+*/
