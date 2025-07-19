@@ -1,49 +1,65 @@
-/* Estilos para o contêiner principal do jogo e cabeçalho */
+/* Este arquivo CSS define os estilos para a estrutura principal do layout do jogo Sudoku Premium.
+ * Inclui o contêiner principal da aplicação, o cabeçalho com o título e controles,
+ * e a organização do conteúdo principal em seções flexíveis. Também aborda a responsividade para diferentes tamanhos de tela.
+ */
+
+/* --- Estilos para o Contêiner Principal do Jogo --- */
+/* O '.game-container' é o invólucro (wrapper) de toda a interface do jogo. */
 .game-container {
-    width: 90vw;
-    max-width: 1200px;
-    height: auto;
-    min-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--surface);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--elevation-2);
-    overflow: hidden;
-    padding: var(--space-md);
-    box-sizing: border-box;
+    width: 90vw;                  /* Ocupa 90% da largura da viewport (tela visível do navegador). */
+    max-width: 1200px;            /* Limita a largura máxima para que não fique muito esticado em telas muito grandes. */
+    height: auto;                 /* A altura se ajusta automaticamente ao conteúdo. */
+    min-height: 80vh;             /* Garante uma altura mínima de 80% da altura da viewport. */
+    display: flex;                /* Usa Flexbox para organizar seus itens internos (cabeçalho, conteúdo principal). */
+    flex-direction: column;       /* Os itens flexíveis se empilham verticalmente. */
+    background-color: var(--surface); /* Cor de fundo da superfície, definida nas variáveis de tema. */
+    border-radius: var(--border-radius-lg); /* Arredondamento das bordas do contêiner. */
+    box-shadow: var(--elevation-2); /* Sombra para dar um efeito de elevação, definida nas variáveis. */
+    overflow: hidden;             /* Esconde qualquer conteúdo que transborde as bordas do contêiner. */
+    padding: var(--space-md);     /* Espaçamento interno (preenchimento) em todos os lados. */
+    box-sizing: border-box;       /* Garante que padding e border sejam incluídos na largura/altura total. */
 }
 
+/* --- Estilos para o Cabeçalho do Jogo --- */
+/* O '.header' contém o título do jogo e os controles (dificuldade, novo jogo). */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-md);
-    padding-bottom: var(--space-sm);
-    border-bottom: 1px solid var(--surface-variant);
+    display: flex;                /* Usa Flexbox para organizar seus itens (título e controles) em linha. */
+    justify-content: space-between; /* Distribui o espaço para empurrar o título para a esquerda e os controles para a direita. */
+    align-items: center;          /* Alinha os itens verticalmente ao centro. */
+    margin-bottom: var(--space-md); /* Espaçamento abaixo do cabeçalho. */
+    padding-bottom: var(--space-sm); /* Espaçamento interno inferior. */
+    border-bottom: 1px solid var(--surface-variant); /* Linha fina de separação na parte inferior. */
 }
 
+/* --- Estilos para os Controles do Cabeçalho --- */
+/* O '.controls' agrupa os elementos de controle dentro do cabeçalho. */
 .controls {
-    display: flex;
-    gap: var(--space-sm);
-    align-items: center;
+    display: flex;      /* Usa Flexbox para alinhar os controles em linha. */
+    gap: var(--space-sm); /* Espaço entre os itens de controle. */
+    align-items: center; /* Alinha os itens verticalmente ao centro. */
 }
 
+/* --- Estilos para o Conteúdo Principal --- */
+/* O '.main-content' contém o grid do Sudoku e o painel lateral. */
 .main-content {
-    display: flex;
-    flex: 1;
-    gap: var(--space-md);
+    display: flex;      /* Usa Flexbox para organizar o grid e o painel lado a lado. */
+    flex: 1;            /* Permite que o conteúdo principal ocupe o espaço restante disponível verticalmente. */
+    gap: var(--space-md); /* Espaço entre o grid e o painel lateral. */
 }
 
+/* --- Responsividade (Para Telas Menores) --- */
+/* Media query: Aplica estilos quando a largura da tela é menor ou igual a 1200px. */
 @media (max-width: 1200px) {
+    /* Ajustes para o contêiner principal em telas menores (ex: tablets e celulares). */
     .game-container {
-        width: 100%;
-        height: auto;
-        min-height: 100vh;
-        border-radius: 0;
+        width: 100%;       /* Ocupa a largura total da tela. */
+        height: auto;      /* A altura se ajusta ao conteúdo. */
+        min-height: 100vh; /* Garante que o contêiner preencha a altura total da viewport. */
+        border-radius: 0;  /* Remove o arredondamento das bordas para uma experiência de tela cheia. */
     }
 
+    /* Ajustes para o conteúdo principal: empilha o grid e o painel verticalmente. */
     .main-content {
-        flex-direction: column;
+        flex-direction: column; /* Os itens flexíveis se empilham verticalmente em telas menores. */
     }
 }

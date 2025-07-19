@@ -1,167 +1,224 @@
-/* css/pages/_home.css */
+/* css/pages/_home.css
+ * Este arquivo CSS é dedicado à estilização da página inicial (Home) do Sudoku Premium.
+ * Ele define o layout geral, os estilos para as seções de destaque e história (agora em cards),
+ * os botões de chamada para ação (CTA) e a responsividade para diferentes dispositivos.
+ */
 
-/* ... seu CSS existente para home-container, hero-section, cta-button, etc. ... */
+/* --- Estilos para a Seção de Destaque (Hero Section) --- */
+/* O '.hero-section' é a área principal de boas-vindas na página Home, contendo o título e CTA. */
+.hero-section {
+    padding: var(--space-xl) 0 var(--space-lg); /* Mais padding em cima e embaixo para o respiro. */
+    margin-bottom: var(--space-lg);             /* Aumenta a margem abaixo da seção para o próximo bloco. */
+    border-bottom: 1px solid var(--surface-variant); /* Linha sutil de separação na parte inferior. */
+    width: 100%;                                /* Ocupa a largura total disponível. */
+}
 
-/* Estilos para a seção que agrupa os cards (opcional, para layout) */
+/* Estilos para o título principal (h1) na Hero Section. */
+.hero-section h1 {
+    font-size: 2.5rem;                   /* Tamanho da fonte grande para o título principal. */
+    font-weight: 700;                    /* Peso da fonte forte para destaque. */
+    color: var(--primary);               /* Cor principal para o título, vinda do tema. */
+    margin-bottom: var(--space-md);      /* Espaço entre o título e o subtítulo. */
+    line-height: 1.2;                    /* Altura da linha para melhor leitura em títulos. */
+    letter-spacing: -0.5px;              /* Espaçamento entre as letras para um visual mais refinado. */
+    padding: 0 var(--space-md);          /* Adiciona um pouco de padding lateral para evitar que o texto cole nas bordas. */
+}
+
+/* Estilos para o subtítulo na Hero Section. */
+.hero-section .subtitle {
+    font-size: 1.125rem;                 /* Tamanho da fonte para o subtítulo. */
+    color: var(--on-surface-variant);    /* Cor do texto que contrasta com a superfície. */
+    margin-bottom: var(--space-xl);      /* Aumenta o espaço entre o subtítulo e o botão CTA para mais respiro. */
+    max-width: 600px;                    /* Limita a largura do subtítulo para melhor legibilidade. */
+    margin-left: auto;                   /* Centraliza o subtítulo. */
+    margin-right: auto;                  /* Centraliza o subtítulo. */
+}
+
+/* --- Estilos para a Seção que Agrupa os Cards --- */
+/* O '.card-section' é um contêiner flexível que organiza os cards de conteúdo. */
 .card-section {
-    display: flex;
-    flex-wrap: wrap; /* Permite que os cards quebrem a linha */
-    justify-content: center; /* Centraliza os cards */
-    gap: var(--space-md); /* Espaço entre os cards */
-    width: 100%;
+    display: flex;          /* Usa Flexbox para alinhar os cards lado a lado. */
+    flex-wrap: wrap;        /* Permite que os cards "quebrem a linha" e se empilhem em telas menores. */
+    justify-content: center; /* Centraliza os cards horizontalmente dentro do contêiner. */
+    gap: var(--space-md);   /* Define o espaçamento entre os cards. */
+    width: 100%;            /* Ocupa a largura total disponível de seu contêiner pai. */
 }
 
-/* Estilos para o Card */
+/* --- Estilos para o Card Individual --- */
+/* O '.card' define a aparência e o layout de cada bloco de informação detalhada. */
 .card {
-    background-color: var(--surface-variant); /* Uma cor de fundo que destaque o card */
-    color: var(--on-surface-variant); /* Cor de texto para o card */
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--elevation-1); /* Sombreamento sutil para dar profundidade */
-    padding: var(--space-lg);
-    flex: 1; /* Permite que os cards cresçam e ocupem o espaço disponível */
-    min-width: 280px; /* Largura mínima antes de quebrar a linha */
-    max-width: 400px; /* Largura máxima para legibilidade em telas grandes */
-    text-align: left; /* Alinhamento de texto dentro do card */
-    display: flex; /* Para centralizar o conteúdo verticalmente se necessário */
-    flex-direction: column;
-    justify-content: flex-start; /* Alinha o conteúdo ao topo */
+    background-color: var(--surface-variant); /* Cor de fundo do card. */
+    color: var(--on-surface-variant);       /* Cor do texto principal dentro do card. */
+    border-radius: var(--border-radius-md); /* Arredondamento das bordas. */
+    box-shadow: var(--elevation-1);         /* Sombra sutil. */
+    padding: var(--space-lg);               /* Espaçamento interno. */
+    flex: 1;                                /* Permite que o card cresça para ocupar o espaço disponível. */
+    min-width: 280px;                       /* Largura mínima. */
+    max-width: 400px;                       /* Largura máxima. */
+    text-align: left;                       /* Alinhamento do texto. */
+    display: flex;                          /* Usa Flexbox para organizar o conteúdo verticalmente. */
+    flex-direction: column;                 /* Itens empilham verticalmente. */
+    justify-content: flex-start;            /* Alinha conteúdo ao topo. */
 }
 
+/* Estilos para o Título do Card (h2). */
 .card h2 {
-    font-size: 1.6rem; /* Título do card */
-    font-weight: 600;
-    color: var(--on-surface); /* Título do card com cor de destaque */
-    margin-bottom: var(--space-md);
-    text-align: center; /* Centraliza o título dentro do card */
+    font-size: 1.6rem;         /* Tamanho da fonte. */
+    font-weight: 600;          /* Peso da fonte. */
+    color: var(--on-surface);  /* Cor do título. */
+    margin-bottom: var(--space-md); /* Espaçamento. */
+    text-align: center;        /* Centraliza o título. */
 }
 
+/* Estilos para Parágrafos dentro do Card (p). */
 .card p {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    margin-bottom: var(--space-sm);
+    font-size: 0.95rem;           /* Tamanho da fonte. */
+    line-height: 1.7;             /* Altura da linha. */
+    margin-bottom: var(--space-sm); /* Espaçamento. */
+    text-indent: var(--space-md); /* Adiciona um recuo (tabulação) no início do parágrafo. */
 }
 
+/* Estilos para Listas Não Ordenadas dentro do Card (ul). */
 .card ul {
-    list-style: none;
-    padding: 0;
-    margin-top: var(--space-md);
+    list-style: none; /* Remove marcadores padrão. */
+    padding: 0;       /* Remove preenchimento padrão. */
+    margin-top: var(--space-md); /* Espaçamento. */
 }
 
+/* Estilos para cada item de lista (li) dentro do card. */
 .card li {
-    font-size: 1rem;
-    margin-bottom: var(--space-xs);
-    position: relative;
-    padding-left: var(--space-md);
+    font-size: 1rem;              /* Tamanho da fonte. */
+    margin-bottom: var(--space-xs); /* Espaçamento. */
+    position: relative;           /* Posicionamento relativo para o marcador. */
+    padding-left: var(--space-md); /* Espaço para o marcador. */
 }
 
-/* Reajuste para o marcador personalizado nos cards */
+/* Reajuste para o marcador personalizado nos itens da lista do card. */
 .card li::before {
-    content: '→'; /* Um ícone diferente para o card, se quiser */
-    color: var(--primary);
-    position: absolute;
-    left: 0;
-    font-weight: bold;
+    content: '→';           /* Marcador de seta. */
+    color: var(--primary);  /* Cor primária. */
+    position: absolute;     /* Posicionamento absoluto. */
+    left: 0;                /* Alinhamento à esquerda. */
+    font-weight: bold;      /* Negrito. */
 }
 
-/* Botões de Chamada para Ação (CTA Buttons) - ESTILOS ATUALIZADOS */
+/* --- Botões de Chamada para Ação (CTA Buttons) - REVISÃO DE ESPAÇAMENTO --- */
+/* Esta seção define os estilos para os botões "Começar a Jogar" e "Jogar Agora!". */
 .cta-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-sm) var(--space-lg); /* Mantendo o padding */
-    border-radius: var(--border-radius-md);
-    background-color: var(--primary);
-    color: var(--on-primary);
-    text-decoration: none;
-    font-weight: 600; /* Mantendo o peso da fonte */
-    font-size: 1.1rem; /* Aumentando um pouco o tamanho da fonte */
-    letter-spacing: 0.5px;
-    transition: background-color var(--transition-medium), transform var(--transition-short), box-shadow var(--transition-medium), border-color var(--transition-medium); /* Adicionando transição para border-color */
-    box-shadow: var(--elevation-1);
-    min-height: 48px;
-    border: 1px solid transparent; /* Adicionando uma borda transparente inicialmente */
+    display: inline-flex;                     /* Alinhamento e flexbox. */
+    align-items: center;                      /* Centraliza verticalmente. */
+    justify-content: center;                  /* Centraliza horizontalmente. */
+    padding: var(--space-md) var(--space-xl); /* Mais padding interno para "volume". */
+    border-radius: var(--border-radius-md);   /* Arredondamento das bordas. */
+    background-color: var(--primary);         /* Cor de fundo primária. */
+    color: var(--on-primary);                 /* Cor do texto. */
+    text-decoration: none;                    /* Remove sublinhado. */
+    font-weight: 600;                         /* Peso da fonte. */
+    font-size: 1.2rem;                        /* Fonte maior para destaque. */
+    letter-spacing: 0.5px;                    /* Espaçamento entre letras. */
+    transition:                               /* Transições suaves. */
+        background-color var(--transition-medium),
+        transform var(--transition-short),
+        box-shadow var(--transition-medium),
+        border-color var(--transition-medium);
+    box-shadow: var(--elevation-1);           /* Sombra inicial. */
+    min-height: 56px;                         /* Altura mínima maior para presença visual. */
+    border: 1px solid transparent;            /* Borda transparente inicial. */
+    margin-top: var(--space-xl);              /* Margem superior para separar do texto acima. */
 }
 
+/* Estilo ao passar o mouse sobre o botão CTA primário. */
 .cta-button:hover {
-    background-color: color-mix(in srgb, var(--primary) 80%, black); /* Ligeiramente mais escuro no hover */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada no hover */
-    border-color: var(--primary-container); /* Adicionando uma borda sutil no hover */
+    background-color: color-mix(in srgb, var(--primary) 80%, black); /* Escurece no hover. */
+    transform: translateY(-2px);                                    /* Move para cima. */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);                         /* Sombra pronunciada. */
+    border-color: var(--primary-container);                         /* Borda sutil. */
 }
 
+/* Estilo ao ativar (clicar) o botão CTA primário. */
 .cta-button:active {
-    transform: translateY(0);
-    box-shadow: var(--elevation-1); /* Retorna a sombra original ao clicar */
+    transform: translateY(0);       /* Volta à posição original. */
+    box-shadow: var(--elevation-1); /* Volta à sombra inicial. */
 }
 
+/* Estilo para a variação "secondary" do botão CTA. */
 .cta-button.secondary {
-    background-color: var(--secondary-container);
-    color: var(--on-secondary-container);
-    margin-top: var(--space-md);
-    border: 1px solid transparent;
+    background-color: var(--secondary-container); /* Cor de fundo secundária. */
+    color: var(--on-secondary-container);       /* Cor do texto. */
+    margin-top: var(--space-md);                /* Espaçamento entre CTAs se empilhados. */
+    border: 1px solid transparent;              /* Borda transparente inicial. */
 }
 
+/* Estilo ao passar o mouse sobre a variação "secondary" do botão CTA. */
 .cta-button.secondary:hover {
-    background-color: color-mix(in srgb, var(--secondary-container) 80%, black);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
-    border-color: var(--secondary);
+    background-color: color-mix(in srgb, var(--secondary-container) 80%, black); /* Escurece no hover. */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);                                  /* Sombra pronunciada. */
+    transform: translateY(-2px);                                            /* Move para cima. */
+    border-color: var(--secondary);                                         /* Borda sutil. */
 }
 
-
-/* Remova os estilos antigos para .history-section e .features-section se eles estiverem dentro dos cards */
-/* .history-section, .features-section {
-    padding: var(--space-md) 0;
-    line-height: 1.6;
+/* Seção de Chamada Final para Ação */
+.call-to-action-bottom {
+    padding: var(--space-lg) 0; /* Mais padding vertical para dar respiro à seção */
+    margin-top: var(--space-xl); /* Aumenta a margem superior para separar bem dos cards */
+    border-top: 1px solid var(--surface-variant);
+    width: 100%;
+    display: flex; /* Adiciona flexbox para centralizar o conteúdo */
+    flex-direction: column; /* Organiza os itens em coluna */
+    align-items: center; /* Centraliza horizontalmente os itens (parágrafo e botão) */
+    text-align: center; /* Garante que o texto dentro desta seção esteja centralizado */
 }
-.history-section h2, .features-section h2 {
-    font-size: 1.8rem;
-    font-weight: 600;
+
+.call-to-action-bottom p {
+    font-size: 1.25rem;
+    font-weight: 500;
     color: var(--on-surface);
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-md); /* Espaço entre o parágrafo e o botão */
+    max-width: 600px; /* Limita a largura do parágrafo para melhor legibilidade */
 }
-.history-section p, .features-section p {
-    font-size: 1rem;
-    margin-bottom: var(--space-sm);
-    color: var(--on-background);
-}
-.features-section ul {
-    list-style: none;
-    padding: 0;
-    margin-top: var(--space-md);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-    align-items: center;
-}
-.features-section li {
-    font-size: 1.05rem;
-    color: var(--on-background);
-    position: relative;
-    padding-left: var(--space-md);
-}
-.features-section li::before {
-    content: '•';
-    color: var(--primary);
-    position: absolute;
-    left: 0;
-    font-weight: bold;
-}
-*/
 
-
-/* Responsividade para telas menores: ajuste dos cards */
+/* --- Responsividade para Telas Menores (Ajuste dos Cards e Hero Section) --- */
+/* Media query: Aplica estilos específicos quando a largura da tela é menor ou igual a 768px. */
 @media (max-width: 768px) {
+    /* Ajustes para a Hero Section em telas menores. */
+    .hero-section {
+        padding: var(--space-lg) var(--space-md) var(--space-md); /* Ajusta padding para mobile. */
+        margin-bottom: var(--space-lg);                             /* Ajusta margem para mobile. */
+    }
+
+    /* Reduz o tamanho da fonte do título principal em telas menores. */
+    .hero-section h1 {
+        font-size: 2rem;           /* Tamanho de fonte ajustado. */
+        margin-bottom: var(--space-sm); /* Espaçamento ajustado. */
+    }
+
+    /* Reduz o tamanho da fonte do subtítulo em telas menores. */
+    .hero-section .subtitle {
+        font-size: 1rem;           /* Tamanho de fonte ajustado. */
+        margin-bottom: var(--space-lg); /* Espaçamento ajustado. */
+    }
+
+    /* Ajustes para os botões CTA em telas menores. */
+    .cta-button {
+        padding: var(--space-sm) var(--space-lg); /* Padding menor. */
+        font-size: 1rem;           /* Fonte menor. */
+        min-height: 48px;          /* Altura menor. */
+        margin-top: var(--space-lg); /* Margem superior ajustada. */
+    }
+
+    /* Em telas pequenas, os cards se empilham verticalmente. */
     .card-section {
-        flex-direction: column; /* Cards se empilham em telas pequenas */
-        gap: var(--space-lg); /* Mais espaço entre cards empilhados */
+        flex-direction: column; /* Os cards se empilham em uma única coluna. */
+        gap: var(--space-lg);   /* Aumenta o espaçamento entre os cards quando empilhados. */
     }
 
+    /* Ajustes para o card individual em telas pequenas. */
     .card {
-        max-width: 100%; /* Ocupa a largura total disponível */
-        padding: var(--space-md); /* Reduz padding */
+        max-width: 100%;      /* Ocupa a largura total disponível na tela. */
+        padding: var(--space-md); /* Reduz o preenchimento interno. */
     }
 
+    /* Reduz o tamanho da fonte do título do card em telas menores. */
     .card h2 {
         font-size: 1.4rem;
     }

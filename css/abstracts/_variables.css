@@ -1,32 +1,56 @@
-/* Variáveis globais para cores, espaçamentos, bordas, transições, elevação */
-:root { /* Mova a definição padrão de todas as variáveis para cá */
-    /* Cores específicas para o Sudoku (nomes de variáveis, não os valores diretos) */
-    --cell-given: var(--on-background);
-    --cell-user: var(--primary);
-    --cell-error: var(--error);
-    --cell-selected: var(--primary-container);
-    --cell-highlighted: #FFF8E1; /* Este valor ainda será sobrescrito pelo tema escuro */
-    --block-border: var(--outline);
-    --cell-border: var(--surface-variant);
+/* Este arquivo CSS define as variáveis globais (Custom Properties) para a aplicação Sudoku Premium.
+ * Ele serve como a base do sistema de design, estabelecendo cores padrão (para o tema claro),
+ * espaçamentos, raios de borda, níveis de elevação (sombras) e durações de transição.
+ * As variáveis de cor aqui são sobrescritas nos arquivos de tema (theme-light.css e theme-dark.css)
+ * para definir as paletas específicas.
+ */
 
-    /* Espaçamentos */
-    --space-xs: 4px;
-    --space-sm: 8px;
-    --space-md: 16px;
-    --space-lg: 24px;
-    --space-xl: 32px;
+:root { /* O seletor ':root' representa o elemento <html> do documento, tornando estas variáveis acessíveis globalmente. */
 
-    /* Bordas */
-    --border-radius-sm: 4px;
-    --border-radius-md: 8px;
-    --border-radius-lg: 12px;
+    /* --- Cores Específicas para o Sudoku ---
+     * Estas variáveis definem as cores para elementos visuais específicos do jogo,
+     * baseando-se nas cores semânticas (primary, on-background, etc.) que são definidas nos arquivos de tema.
+     */
+    --cell-given: var(--on-background);      /* Cor do texto para números que vêm com o puzzle (não editáveis). */
+    --cell-user: var(--primary);             /* Cor do texto para números inseridos pelo usuário. */
+    --cell-error: var(--error);              /* Cor para indicar um erro (geralmente vermelho). */
+    --cell-selected: var(--primary-container); /* Cor de fundo para a célula atualmente selecionada. */
+    --cell-highlighted: #FFF8E1;             /* Cor de fundo para células relacionadas (linha, coluna, bloco) à selecionada.
+                                              * NOTA: Este valor é a cor do tema CLARO e será sobrescrito em theme-dark.css. */
+    --block-border: var(--outline);          /* Cor das bordas mais grossas que separam os blocos 3x3 do Sudoku. */
+    --cell-border: var(--surface-variant);   /* Cor das bordas finas que separam as células individuais. */
 
-    /* Elevação */
-    --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
-    --elevation-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+    /* --- Espaçamentos (Spacing) ---
+     * Define uma escala consistente de espaçamentos para paddings, margins e gaps,
+     * garantindo uniformidade em todo o layout da aplicação.
+     */
+    --space-xs: 4px;  /* Espaçamento extra pequeno. */
+    --space-sm: 8px;  /* Espaçamento pequeno. */
+    --space-md: 16px; /* Espaçamento médio (padrão comum). */
+    --space-lg: 24px; /* Espaçamento grande. */
+    --space-xl: 32px; /* Espaçamento extra grande. */
 
-    /* Transições */
-    --transition-short: 100ms;
-    --transition-medium: 200ms;
-    --transition-long: 300ms;
+    /* --- Bordas (Border Radius) ---
+     * Define valores para o arredondamento de bordas de elementos,
+     * contribuindo para a estética visual do design.
+     */
+    --border-radius-sm: 4px;  /* Raio de borda pequeno. */
+    --border-radius-md: 8px;  /* Raio de borda médio. */
+    --border-radius-lg: 12px; /* Raio de borda grande. */
+
+    /* --- Elevação (Elevation / Sombras) ---
+     * Define padrões para sombras, dando a impressão de profundidade e elevação
+     * aos elementos da interface (como botões e cards).
+     * Os valores representam: offset-x offset-y blur-radius spread-radius color.
+     */
+    --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15); /* Sombra sutil para elementos levemente elevados. */
+    --elevation-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada para elementos mais elevados. */
+
+    /* --- Transições (Transitions) ---
+     * Define durações padrão para as transições CSS, garantindo animações suaves
+     * e consistentes ao interagir com a interface.
+     */
+    --transition-short: 100ms;  /* Transições muito rápidas. */
+    --transition-medium: 200ms; /* Transições com duração padrão. */
+    --transition-long: 300ms;   /* Transições mais lentas e suaves. */
 }

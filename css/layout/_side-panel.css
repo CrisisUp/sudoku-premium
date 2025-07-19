@@ -1,98 +1,127 @@
-/* Estilos para o painel lateral e suas seções */
+/* Este arquivo CSS define os estilos para o painel lateral (side-panel) do jogo Sudoku Premium.
+ * Ele agrupa os botões de ação, o teclado numérico virtual e a área de informações do jogo (timer, mensagens, dicas).
+ * Também inclui regras de responsividade para adaptar a exibição em telas menores.
+ */
+
+/* --- Estilos Base para o Painel Lateral --- */
+/* O '.side-panel' é o contêiner principal que abriga todas as ferramentas e informações à direita do tabuleiro. */
 .side-panel {
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
+    width: 200px;           /* Largura fixa do painel lateral em telas maiores. */
+    display: flex;          /* Usa Flexbox para organizar os elementos internos. */
+    flex-direction: column; /* Os itens flexíveis (teclado, ações, info) se empilham verticalmente. */
+    gap: var(--space-md);   /* Espaçamento entre as diferentes seções do pain painel. */
 }
 
+/* --- Estilos para o Teclado Numérico Virtual --- */
+/* O '.number-pad' é o contêiner dos botões numéricos (1-9, apagar). */
 .number-pad {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-xs);
-    background-color: var(--surface-variant);
-    padding: var(--space-sm);
-    border-radius: var(--border-radius-md);
+    display: grid;                   /* Usa CSS Grid para organizar os botões em colunas e linhas. */
+    grid-template-columns: repeat(3, 1fr); /* Cria 3 colunas de largura igual. */
+    gap: var(--space-xs);            /* Espaçamento entre os botões numéricos. */
+    background-color: var(--surface-variant); /* Cor de fundo que contrasta sutilmente com a superfície principal. */
+    padding: var(--space-sm);        /* Espaçamento interno (preenchimento) do teclado. */
+    border-radius: var(--border-radius-md); /* Arredondamento das bordas do teclado numérico. */
 }
 
+/* --- Estilos para os Botões de Ação --- */
+/* O '.action-buttons' agrupa os botões como "Verificar", "Dica" e "Resolver". */
 .action-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
+    display: flex;          /* Usa Flexbox para organizar os botões de ação. */
+    flex-direction: column; /* Os botões se empilham verticalmente. */
+    gap: var(--space-xs);   /* Espaçamento entre os botões de ação. */
 }
 
+/* --- Estilos para a Área de Informações do Jogo --- */
+/* O '.game-info' exibe o timer, as dicas restantes e mensagens de feedback. */
 .game-info {
-    background-color: var(--surface-variant);
-    padding: var(--space-sm);
-    border-radius: var(--border-radius-md);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
+    background-color: var(--surface-variant); /* Cor de fundo consistente com o teclado numérico. */
+    padding: var(--space-sm);        /* Espaçamento interno. */
+    border-radius: var(--border-radius-md); /* Arredondamento das bordas. */
+    display: flex;          /* Usa Flexbox para organizar os elementos internos (timer, dicas, mensagem). */
+    flex-direction: column; /* Os itens se empilham verticalmente. */
+    gap: var(--space-sm);   /* Espaçamento entre os elementos de informação. */
 }
 
+/* --- Estilos para o Display do Timer --- */
+/* O '.timer' é o elemento que mostra o tempo decorrido da partida. */
 .timer {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--on-surface);
-    text-align: center;
+    font-size: 1rem;              /* Tamanho da fonte. */
+    font-weight: 500;             /* Peso da fonte. */
+    color: var(--on-surface);     /* Cor do texto, contrastante com a superfície. */
+    text-align: center;           /* Centraliza o texto. */
 }
 
+/* --- Estilos para Mensagens de Feedback --- */
+/* O '.message' exibe mensagens curtas de feedback ao usuário (ex: "Bom jogo!", "Dica usada!"). */
 .message {
-    font-size: 0.875rem;
-    text-align: center;
-    padding: var(--space-xs);
-    border-radius: var(--border-radius-sm);
-    background-color: var(--tertiary-container);
-    color: var(--on-tertiary-container);
+    font-size: 0.875rem;          /* Tamanho da fonte menor para mensagens. */
+    text-align: center;           /* Centraliza o texto. */
+    padding: var(--space-xs);     /* Espaçamento interno. */
+    border-radius: var(--border-radius-sm); /* Arredondamento das bordas. */
+    background-color: var(--tertiary-container); /* Cor de fundo base para mensagens. */
+    color: var(--on-tertiary-container);       /* Cor do texto base para mensagens. */
 }
 
+/* Estilos específicos para mensagens de ERRO. */
 .message.error {
-    background-color: var(--error-container);
-    color: var(--on-error-container);
+    background-color: var(--error-container); /* Cor de fundo para erros (geralmente vermelho/laranja). */
+    color: var(--on-error-container);       /* Cor do texto para erros. */
 }
 
+/* Estilos específicos para mensagens de SUCESSO. */
 .message.success {
+    /* Mistura a cor do container primário com transparência para um fundo suave. */
     background-color: color-mix(in srgb, var(--primary-container) 80%, transparent);
-    color: var(--on-primary-container);
+    color: var(--on-primary-container);       /* Cor do texto para sucesso. */
 }
 
+/* --- Estilos para os Elementos Visuais das Dicas --- */
+/* O '.hints' é o contêiner que agrupa as pequenas bolinhas que representam as dicas restantes. */
 .hints {
-    display: flex;
-    gap: var(--space-xs);
-    justify-content: center;
+    display: flex;        /* Usa Flexbox para alinhar as bolinhas de dica. */
+    gap: var(--space-xs); /* Espaçamento entre as bolinhas. */
+    justify-content: center; /* Centraliza as bolinhas horizontalmente. */
 }
 
+/* Estilos para cada bolinha de dica individual. */
 .hint {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: var(--outline);
-    opacity: 0.5;
-    transition: opacity var(--transition-medium);
+    width: 12px;                  /* Largura da bolinha. */
+    height: 12px;                 /* Altura da bolinha (junto com a largura, forma um círculo). */
+    border-radius: 50%;           /* Garante que seja um círculo. */
+    background-color: var(--outline); /* Cor padrão para dicas inativas/gastas. */
+    opacity: 0.5;                 /* Torna as dicas inativas mais claras/translúcidas. */
+    transition: opacity var(--transition-medium); /* Transição suave para a opacidade. */
 }
 
+/* Estilos para bolinhas de dica ATIVAS (dicas restantes). */
 .hint.active {
-    background-color: var(--primary);
-    opacity: 1;
+    background-color: var(--primary); /* Cor primária para dicas ativas. */
+    opacity: 1;                     /* Opacidade total para dicas ativas. */
 }
 
+/* --- Responsividade (Para Telas Menores) --- */
+/* Media query: Aplica estilos quando a largura da tela é menor ou igual a 1200px. */
 @media (max-width: 1200px) {
+    /* Ajustes para o painel lateral em telas menores (ex: tablets e celulares). */
     .side-panel {
-        width: 100%;
-        flex-direction: row;
-        flex-wrap: wrap;
+        width: 100%;            /* Ocupa a largura total disponível. */
+        flex-direction: row;    /* Os elementos internos se alinham horizontalmente. */
+        flex-wrap: wrap;        /* Permite que os elementos quebrem a linha se não houver espaço. */
     }
 
+    /* Ordena o teclado numérico para aparecer abaixo das informações/ações. */
     .number-pad {
-        order: 2;
-        flex-grow: 1;
+        order: 2;   /* Define a ordem do elemento dentro do flex container. */
+        flex-grow: 1; /* Permite que o teclado cresça para ocupar o espaço disponível. */
     }
 
+    /* Permite que a área de informações cresça para ocupar o espaço. */
     .game-info {
         flex-grow: 1;
     }
 
+    /* Ajusta os botões de ação para se alinharem horizontalmente. */
     .action-buttons {
-        flex-direction: row;
+        flex-direction: row; /* Os botões de ação se alinham horizontalmente em telas menores. */
     }
 }

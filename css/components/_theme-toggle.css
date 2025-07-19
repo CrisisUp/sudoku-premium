@@ -1,69 +1,78 @@
-/* Estilos para o botão de alternar tema */
+/* Este arquivo CSS define os estilos para o botão de alternar tema (claro/escuro)
+ * na aplicação Sudoku Premium. Ele inclui o posicionamento, os estados de interação,
+ * e a animação dos ícones de sol e lua para uma transição visual suave.
+ */
+
+/* --- Estilos Base do Botão de Alternar Tema --- */
+/* Posicionamento e layout do botão de tema */
 .theme-toggle {
-    position: absolute;
-    top: var(--space-md);
-    right: var(--space-md);
-    background: none;
-    border: none;
-    color: var(--on-surface);
-    cursor: pointer;
-    padding: var(--space-xs);
-    border-radius: 50%;
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: absolute;       /* Posicionamento absoluto em relação ao seu contêiner pai mais próximo posicionado */
+    top: var(--space-md);     /* Distância do topo, usando variável de espaçamento */
+    right: var(--space-md);   /* Distância da direita, usando variável de espaçamento */
+    background: none;         /* Remove o fundo padrão */
+    border: none;             /* Remove a borda padrão */
+    color: var(--on-surface); /* Cor do ícone/texto, contrastante com a superfície */
+    cursor: pointer;          /* Altera o cursor para indicar clicabilidade */
+    padding: var(--space-xs); /* Espaçamento interno (preenchimento) */
+    border-radius: 50%;       /* Torna o botão um círculo */
+    aspect-ratio: 1;          /* Garante que o botão seja sempre quadrado (1:1), complementa border-radius para círculo */
+    display: flex;            /* Usa flexbox para centralizar o conteúdo (ícones SVG) */
+    align-items: center;      /* Centraliza verticalmente o conteúdo flex */
+    justify-content: center;  /* Centraliza horizontalmente o conteúdo flex */
 }
 
+/* Estilos ao passar o mouse sobre o botão de alternar tema */
 .theme-toggle:hover {
+    /* Mistura a cor da superfície com um toque da cor primária do container,
+     * criando um leve fundo de destaque no hover. */
     background-color: color-mix(in srgb, var(--surface) 90%, var(--primary-container));
 }
 
+/* --- Estilos para os Ícones SVG (Sol e Lua) --- */
+/* Estilos gerais aplicados a ambos os ícones SVG dentro do botão de alternar tema. */
 .theme-toggle svg {
-    position: absolute;
+    position: absolute; /* Posiciona os ícones um sobre o outro dentro do botão */
+    /* Adiciona transições suaves para opacidade e transformação,
+     * criando o efeito de 'sumir'/'aparecer' e 'girar'. */
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Regras para ícones baseadas em data-theme */
-[data-theme="dark"] .icon-moon,
-[data-theme="light"] .icon-sun {
+/* --- Controle de Visibilidade e Animação dos Ícones por Tema --- */
+/* OBSERVAÇÃO: As regras duplicadas no final do seu código original foram removidas aqui para clareza.
+ * As primeiras duas regras controlam a visibilidade e animação com base no atributo 'data-theme'
+ * no elemento <html>, que é a abordagem principal do seu JavaScript.
+ * As duas últimas regras (iniciadas com "NOVO:") definem o estado padrão/inicial para evitar sobreposição
+ * de ícones no carregamento antes que o JavaScript aplique o tema. */
+
+/* Regras que escondem o ícone não-ativo e o rotacionam para fora (para dark-moon e light-sun) */
+[data-theme="dark"] .icon-moon, /* No tema escuro, a lua (ícone do modo escuro) deve estar visível, então esta regra a esconde se estiver ativa indevidamente aqui */
+[data-theme="light"] .icon-sun { /* No tema claro, o sol (ícone do modo claro) deve estar visível, então esta regra o esconde se estiver ativa indevidamente aqui */
     opacity: 0;
-    transform: rotate(-90deg) scale(0.8);
+    transform: rotate(-90deg) scale(0.8); /* Gira e diminui para fora da vista */
 }
 
-[data-theme="dark"] .icon-sun,
-[data-theme="light"] .icon-moon {
+/* Regras que mostram o ícone ativo e o trazem para a posição padrão (para dark-sun e light-moon) */
+[data-theme="dark"] .icon-sun, /* No tema escuro, o sol (ícone do modo claro) deve estar visível */
+[data-theme="light"] .icon-moon { /* No tema claro, a lua (ícone do modo escuro) deve estar visível */
     opacity: 1;
-    transform: rotate(0deg) scale(1);
+    transform: rotate(0deg) scale(1); /* Traz o ícone para a posição e tamanho padrão */
 }
 
-.theme-toggle svg {
-    position: absolute;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
+/* --- Estilos Iniciais para Prevenir Sobreposição no Carregamento (Sem data-theme) ---
+ * Estas regras garantem que o ícone correto apareça inicialmente antes que o JavaScript
+ * determine o tema e aplique o atributo `data-theme="light"` ou `data-theme="dark"` ao `<html>`.
+ * Assumindo que o tema padrão inicial (sem preferência ou localStorage) é o CLARO. */
 
-/* NOVO: Esconde o ícone do sol por padrão, assumindo tema claro */
-/* Se o tema padrão é claro, o sol deve estar invisível inicialmente */
+/* Esconde o ícone do sol (representando o modo claro) por padrão,
+ * pois no início do carregamento, queremos ver o ícone da lua (para mudar para escuro). */
 .icon-sun {
     opacity: 0;
     transform: rotate(-90deg) scale(0.8);
 }
 
-/* Deixa o ícone da lua visível por padrão */
+/* Deixa o ícone da lua (representando o modo escuro) visível por padrão,
+ * pronto para ser clicado para alternar para o tema escuro. */
 .icon-moon {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-}
-
-/* Regras para ícones baseadas em data-theme (SOBRESCREVEM as de cima) */
-[data-theme="dark"] .icon-moon,
-[data-theme="light"] .icon-sun {
-    opacity: 0;
-    transform: rotate(-90deg) scale(0.8);
-}
-
-[data-theme="dark"] .icon-sun,
-[data-theme="light"] .icon-moon {
     opacity: 1;
     transform: rotate(0deg) scale(1);
 }

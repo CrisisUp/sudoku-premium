@@ -1,107 +1,148 @@
-/* Estilos para o grid do Sudoku e suas células */
+/* Este arquivo CSS é dedicado à estilização do tabuleiro principal do Sudoku e de suas células individuais.
+ * Ele define o layout do grid, o estilo das células, as bordas que formam os blocos 3x3,
+ * e os estados visuais para interação, como células selecionadas, com erro ou destacadas.
+ */
+
+/* --- Estilos para o Contêiner do Sudoku --- */
+/* O '.sudoku-container' atua como um invólucro flexível que centraliza o grid do Sudoku. */
 .sudoku-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    flex: 1;              /* Permite que o contêiner cresça e ocupe o espaço disponível. */
+    display: flex;        /* Usa Flexbox para centralizar o '.sudoku-grid' dentro dele. */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente. */
+    align-items: center;  /* Centraliza o conteúdo verticalmente. */
 }
 
+/* --- Estilos para o Grid Principal do Sudoku --- */
+/* O '.sudoku-grid' é o elemento que forma o tabuleiro 9x9 do Sudoku. */
 .sudoku-grid {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    grid-template-rows: repeat(9, 1fr);
-    gap: 1px;
-    background-color: var(--block-border);
-    border: 2px solid var(--block-border);
-    width: 100%;
-    height: 100%;
-    max-width: 500px; /* Considerar revisar esta max-width/height */
-    max-height: 500px; /* Considerar revisar esta max-width/height */
+    display: grid;                            /* Usa CSS Grid para criar o layout do tabuleiro. */
+    grid-template-columns: repeat(9, 1fr);    /* Cria 9 colunas de largura igual. */
+    grid-template-rows: repeat(9, 1fr);       /* Cria 9 linhas de altura igual. */
+    gap: 1px;                                 /* Espaço (fino) entre as células, criando as bordas finas. */
+    background-color: var(--block-border);    /* A cor de fundo aqui cria as bordas grossas entre os blocos. */
+    border: 2px solid var(--block-border);    /* Borda externa grossa para o tabuleiro. */
+    width: 100%;                              /* Ocupa 100% da largura disponível no seu contêiner pai. */
+    height: 100%;                             /* Ocupa 100% da altura disponível no seu contêiner pai. */
+    max-width: 500px;                         /* Limita a largura máxima do grid para melhor legibilidade em telas grandes. */
+    max-height: 500px;                        /* Limita a altura máxima do grid, mantendo a proporção. */
+    /* CONSIDERAÇÃO: Você já notou que 'max-width/height' pode precisar de revisão dependendo do layout desejado.
+     * Para um grid verdadeiramente responsivo e quadrado, 'aspect-ratio: 1;' no '.sudoku-grid'
+     * pode ser uma boa adição, especialmente se as dimensões forem mais fluidas. */
 }
 
+/* --- Estilos Base para Cada Célula Individual --- */
+/* O '.cell' define a aparência e o comportamento de cada quadrado no tabuleiro. */
 .cell {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--surface);
-    font-size: 1.5rem;
-    font-weight: 400;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color var(--transition-medium);
-    position: relative;
+    display: flex;                    /* Usa Flexbox para centralizar o número dentro da célula. */
+    justify-content: center;          /* Centraliza o conteúdo horizontalmente. */
+    align-items: center;              /* Centraliza o conteúdo verticalmente. */
+    background-color: var(--surface); /* Cor de fundo da célula. */
+    font-size: 1.5rem;                /* Tamanho da fonte para os números. */
+    font-weight: 400;                 /* Peso da fonte padrão para os números. */
+    cursor: pointer;                  /* Altera o cursor para indicar que a célula é clicável. */
+    user-select: none;                /* Impede a seleção de texto dentro da célula. */
+    transition: background-color var(--transition-medium); /* Transição suave para a cor de fundo (hover, select). */
+    position: relative;               /* Necessário para posicionar elementos filhos (se houver, ex: notas) */
 }
 
-/* Separadores horizontais entre blocos */
+/* --- Estilos para os Separadores Visuais dos Blocos 3x3 (Horizontais e Verticais) --- */
+/* Estas regras CSS criam as bordas mais grossas que dividem o grid em nove blocos 3x3,
+ * usando pseudo-seletores avançados para identificar as células corretas. */
+
+/* Separadores horizontais (bordas superiores grossas para as linhas 3 e 6 de cada bloco) */
+/* Seleciona as células da 28ª à 36ª (linhas 3 e 4), e da 55ª à 63ª (linhas 6 e 7)
+ * para adicionar uma borda superior que age como um divisor de bloco. */
 .cell:nth-child(n+28):nth-child(-n+36),
 .cell:nth-child(n+55):nth-child(-n+63) {
-  border-top: 2px solid var(--block-border);
+  border-top: 2px solid var(--block-border); /* Borda superior grossa. */
 }
 
-.cell:nth-child(9n+4),
-.cell:nth-child(9n+7) {
-    border-left: 2px solid var(--block-border);
+/* Separadores verticais (bordas esquerdas grossas para as colunas 3 e 6 de cada bloco) */
+/* Seleciona cada 4ª e 7ª célula em cada linha (índices 3 e 6 de 0 a 8) para adicionar uma borda esquerda grossa. */
+.cell:nth-child(9n+4), /* Células nas 4ª colunas (col 3) de cada linha */
+.cell:nth-child(9n+7) { /* Células nas 7ª colunas (col 6) de cada linha */
+    border-left: 2px solid var(--block-border); /* Borda esquerda grossa. */
 }
 
+/* --- Estilos de Estado da Célula --- */
+
+/* Estilo ao passar o mouse sobre uma célula (estado 'hover') */
 .cell:hover {
+    /* Mistura a cor da superfície com um toque da cor primária do container,
+     * criando um leve destaque ao passar o mouse. */
     background-color: color-mix(in srgb, var(--surface) 95%, var(--primary-container));
 }
 
+/* Estilo para células que fazem parte do puzzle original (não editáveis) */
 .cell.given {
-    color: var(--cell-given);
-    font-weight: 500;
+    color: var(--cell-given); /* Cor de texto específica para números dados. */
+    font-weight: 500;         /* Peso da fonte ligeiramente mais forte. */
 }
 
+/* Estilo para células preenchidas pelo usuário */
 .cell.user-input {
-    color: var(--cell-user);
-    font-weight: 400;
+    color: var(--cell-user); /* Cor de texto específica para inputs do usuário. */
+    font-weight: 400;        /* Peso da fonte padrão. */
 }
 
+/* Estilo para células que contêm um número incorreto (erro) */
 .cell.error {
-    color: var(--cell-error);
+    color: var(--cell-error); /* Cor de texto para indicar um erro (geralmente vermelho). */
 }
 
+/* Estilo para a célula que está atualmente selecionada pelo jogador */
 .cell.selected {
-    background-color: var(--cell-selected);
+    background-color: var(--cell-selected); /* Cor de fundo específica para a célula selecionada. */
 }
 
+/* Estilo para células que são destacadas porque estão na mesma linha, coluna ou bloco da célula selecionada */
 .cell.highlighted {
-    background-color: var(--cell-highlighted);
+    background-color: var(--cell-highlighted); /* Cor de fundo para células destacadas. */
 }
 
-/* Border styling for 3x3 blocks */
+/* --- Estilos Adicionais para Bordas de Blocos (Alternativo/Complementar) --- */
+/* Estas regras complementam ou podem ser uma alternativa às regras nth-child para bordas. */
+
+/* Aplica uma borda direita grossa a cada 3ª célula (colunas 2, 5, 8) */
 .cell:nth-child(3n) {
     border-right: 2px solid var(--block-border);
 }
 
+/* Remove a borda direita da 9ª célula em cada linha,
+ * para que a borda externa do grid não seja duplicada ou desalinhada. */
 .cell:nth-child(9n) {
     border-right: none;
 }
 
+/* Aplica uma borda inferior grossa a cada célula nas linhas divisoras (linhas 3 e 6).
+ * Esta regra pode ser redundante com o nth-child para border-top se as duas lógicas se sobreporem
+ * ou se forem interpretadas de forma diferente. */
 .row-divider {
     border-bottom: 2px solid var(--block-border);
 }
 
-/* Acessibilidade: foco visível */
+/* --- Acessibilidade: Foco Visível --- */
+/* Garante que o contorno de foco visual seja sempre claro para usuários de teclado. */
 .cell:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: -2px;
-    z-index: 1;
+    outline: 2px solid var(--primary);  /* Contorno de foco visível na cor primária. */
+    outline-offset: -2px;               /* Afasta o contorno da borda interna da célula. */
+    z-index: 1;                         /* Garante que o contorno de foco não seja obscurecido. */
 }
 
-/* Animações */
+/* --- Animações --- */
+/* Define uma animação de fade-in para o grid do Sudoku ao ser carregado. */
 @keyframes fadeIn {
     from {
-        opacity: 0;
-        transform: translateY(10px);
+        opacity: 0;           /* Começa completamente transparente. */
+        transform: translateY(10px); /* Começa ligeiramente abaixo da posição final. */
     }
-
     to {
-        opacity: 1;
-        transform: translateY(0);
+        opacity: 1;           /* Termina totalmente visível. */
+        transform: translateY(0);    /* Termina na posição final. */
     }
 }
 
+/* Aplica a animação 'fadeIn' ao grid do Sudoku. */
 .sudoku-grid {
-    animation: fadeIn var(--transition-long) ease-out;
+    animation: fadeIn var(--transition-long) ease-out; /* Usa a duração de transição longa e função de ease-out. */
 }

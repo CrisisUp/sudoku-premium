@@ -1,72 +1,92 @@
-/* Estilos para todos os botões, incluindo os botões numéricos */
+/* Este arquivo CSS define os estilos base para todos os botões na aplicação Sudoku Premium,
+ * incluindo botões de ação e os botões numéricos do teclado virtual.
+ * Ele garante uma aparência consistente, feedback visual ao interagir e acessibilidade.
+ */
+
+/* --- Estilos Base para Todos os Botões --- */
+/* Aplica estilos gerais a todos os elementos <button> */
 button {
-    padding: var(--space-xs) var(--space-sm);
-    border: none;
-    border-radius: var(--border-radius-sm);
-    background-color: var(--primary);
-    color: var(--on-primary);
-    cursor: pointer;
+    padding: var(--space-xs) var(--space-sm); /* Espaçamento interno (preenchimento) */
+    border: none;                             /* Remove a borda padrão do navegador */
+    border-radius: var(--border-radius-sm);   /* Arredondamento suave das bordas */
+    background-color: var(--primary);         /* Cor de fundo primária, definida nas variáveis de tema */
+    color: var(--on-primary);                 /* Cor do texto, contrastante com a cor primária */
+    cursor: pointer;                          /* Muda o cursor para indicar que o elemento é clicável */
+    /* Define transições suaves para propriedades de estilo ao interagir */
     transition:
-        background-color var(--transition-medium),
-        box-shadow var(--transition-medium),
-        transform var(--transition-short);
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
-    min-height: 40px;
+        background-color var(--transition-medium), /* Transição para a cor de fundo */
+        box-shadow var(--transition-medium),       /* Transição para a sombra */
+        transform var(--transition-short);         /* Transição para o movimento/escala */
+    display: flex;                            /* Usa flexbox para alinhar conteúdo (ícone e texto) */
+    align-items: center;                      /* Centraliza itens verticalmente dentro do botão */
+    gap: var(--space-xs);                     /* Espaço entre ícone e texto */
+    min-height: 40px;                         /* Altura mínima para melhor acessibilidade ao toque */
 }
 
+/* Estilos ao passar o mouse sobre o botão (estado 'hover') */
 button:hover {
-    background-color: color-mix(in srgb, var(--primary) 90%, black);
-    box-shadow: var(--elevation-1);
+    background-color: color-mix(in srgb, var(--primary) 90%, black); /* Escurece ligeiramente a cor primária */
+    box-shadow: var(--elevation-1);                                  /* Aplica uma sombra sutil para efeito de elevação */
 }
 
+/* Estilos ao clicar/ativar o botão (estado 'active') */
 button:active {
-    transform: translateY(1px);
+    transform: translateY(1px); /* Move o botão ligeiramente para baixo para dar a sensação de "pressionado" */
 }
 
+/* Estilos para acessibilidade de teclado (quando o botão está focado via tab, por exemplo) */
 button:focus-visible {
-    outline: 2px solid var(--primary-container);
-    outline-offset: 2px;
+    outline: 2px solid var(--primary-container); /* Contorno de foco visível na cor do container primário */
+    outline-offset: 2px;                         /* Afasta o contorno da borda do botão */
 }
 
+/* --- Variações de Botão --- */
+/* Estilos para botões com classe 'secondary' */
 button.secondary {
-    background-color: var(--secondary-container);
-    color: var(--on-secondary-container);
+    background-color: var(--secondary-container); /* Cor de fundo secundária (geralmente mais suave) */
+    color: var(--on-secondary-container);       /* Cor do texto contrastante com a cor secundária */
 }
 
+/* Estilos ao passar o mouse sobre botões secundários */
 button.secondary:hover {
-    background-color: color-mix(in srgb, var(--secondary-container) 90%, black);
+    background-color: color-mix(in srgb, var(--secondary-container) 90%, black); /* Escurece a cor secundária */
 }
 
+/* Estilos para botões com classe 'tertiary' (geralmente botões de texto ou ícone sem fundo) */
 button.tertiary {
-    background-color: transparent;
-    color: var(--primary);
+    background-color: transparent; /* Fundo transparente */
+    color: var(--primary);         /* Texto na cor primária para destaque */
 }
 
+/* Estilos ao passar o mouse sobre botões terciários */
 button.tertiary:hover {
-    background-color: color-mix(in srgb, var(--primary-container) 10%, transparent);
+    background-color: color-mix(in srgb, var(--primary-container) 10%, transparent); /* Adiciona um leve fundo translúcido */
 }
 
+/* --- Estilos para Botões Numéricos (Teclado Virtual) --- */
+/* Estes são os botões específicos para inserir números no Sudoku. */
 .number-btn {
-    min-width: 44px;
-    min-height: 44px;
-    aspect-ratio: 1;
-    font-size: 1.125rem;
-    font-weight: 500;
-    background-color: var(--surface);
-    color: var(--on-surface);
-    border-radius: var(--border-radius-sm);
+    min-width: 44px;      /* Largura mínima para ser clicável confortavelmente */
+    min-height: 44px;     /* Altura mínima para ser clicável confortavelmente */
+    aspect-ratio: 1;      /* Garante que o botão seja sempre quadrado */
+    font-size: 1.125rem;  /* Tamanho da fonte dos números */
+    font-weight: 500;     /* Peso da fonte para os números */
+    background-color: var(--surface); /* Cor de fundo da superfície do cartão/elemento */
+    color: var(--on-surface);         /* Cor do texto na superfície */
+    border-radius: var(--border-radius-sm); /* Arredondamento das bordas */
+    /* Transições suaves para efeitos de hover e clique */
     transition:
-        background-color var(--transition-medium),
-        transform var(--transition-short);
+        background-color var(--transition-medium), /* Transição para a cor de fundo */
+        transform var(--transition-short);         /* Transição para o movimento/escala */
 }
 
+/* Estilos ao passar o mouse sobre os botões numéricos */
 .number-btn:hover {
-    background-color: color-mix(in srgb, var(--surface) 90%, var(--primary-container));
-    transform: translateY(-2px);
+    background-color: color-mix(in srgb, var(--surface) 90%, var(--primary-container)); /* Mistura a superfície com um toque da cor primária */
+    transform: translateY(-2px); /* Move o botão ligeiramente para cima para um efeito de "pop-out" */
 }
 
+/* Estilos ao clicar/ativar os botões numéricos */
 .number-btn:active {
-    transform: translateY(0);
+    transform: translateY(0); /* Retorna o botão à posição original, complementando o efeito de hover */
 }
