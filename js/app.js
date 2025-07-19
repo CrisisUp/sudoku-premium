@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
     numberBtns.forEach(btn => {
         btn.addEventListener('click', function () {
             const number = parseInt(this.getAttribute('data-number'));
-            handleNumberInput(number);
+            handleNumberInput(number); // Chama a função do módulo _game-play.js
         });
     });
 

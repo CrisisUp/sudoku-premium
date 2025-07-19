@@ -1,6 +1,6 @@
 // js/game/_game-play.js
 
-import { getBoard, getGivenCells, getSolution, getSelectedCell, setSelectedCell, setBoard } from './_game-state.js';
+import { getBoard, getGivenCells, getSolution, getSelectedCell, setSelectedCell, setBoard, getIsGameOver } from './_game-state.js';
 import { gridElement } from '../utils/_dom-elements.js';
 import { renderGrid, highlightRelatedCells } from '../ui/_render-grid.js';
 import { checkGameCompletion } from '../ui/_message-display.js';
