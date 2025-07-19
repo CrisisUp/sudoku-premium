@@ -1,100 +1,174 @@
 // js/game/_game-actions.js
 
-import { getBoard, getSolution, getIsGameOver, setIsGameOver, getHints, decrementHints, setBoard } from './_game-state.js';
-import { messageDisplay } from '../utils/_dom-elements.js';
-import { renderGrid } from '../ui/_render-grid.js'; // Importar renderGrid para atualizar o tabuleiro
-import { endGame, updateHintsDisplay, checkGameCompletion } from '../ui/_message-display.js';
+// Importações Corrigidas: Use getters/setters e não referências diretas ou nomes não exportados
+import { getBoard, getSolution, getIsGameOver, setIsGameOver, getHints, decrementHints, getGivenCells } from './_game-state.js';
+import { renderGrid } from '../ui/_render-grid.js';
+import { messageDisplay, hintsContainer } from '../utils/_dom-elements.js';
+import { stopTimer, getFormattedTime } from './_timer.js'; // Importações ESSENCIAIS do _timer.js
 
 export function checkSolution() {
-    let isCorrect = true;
-    let emptyCells = false;
-    const currentBoard = getBoard();
-    const currentSolution = getSolution();
+    if (getIsGameOver()) return; // Não verificar se o jogo já acabou usando o getter
 
-    for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++) {
-            if (currentBoard[i][j] === 0) {
-                emptyCells = true;
-            } else if (currentBoard[i][j] !== currentSolution[i][j]) {
-                isCorrect = false;
-                // Marcar erros visualmente
-                const cell = document.querySelector(`.cell[data-row="${i}"][data-col="${j}"]`);
-                if (cell) {
-                    cell.classList.add('error');
-                }
+    let correct = true;
+    let hasEmptyCells = false;
+    let errorCells = [];
+
+    // Limpa erros anteriores no DOM
+    document.querySelectorAll('.cell.error').forEach(cell => cell.classList.remove('error'));
+
+    const currentBoard = getBoard(); // Obtém o tabuleiro do estado
+    const currentSolution = getSolution(); // Obtém a solução do estado
+
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            const cell = document.getElementById(`cell-${r}-${c}`);
+            const value = parseInt(cell.textContent) || 0; // Pega o valor da célula no DOM
+
+            if (value === 0) {
+                hasEmptyCells = true;
+            } else if (value !== currentSolution[r][c]) { // Compara com a solução
+                correct = false;
+                errorCells.push(cell); // Armazena a célula com erro para marcar
             }
         }
     }
 
-    if (emptyCells) {
-        messageDisplay.textContent = 'Complete todas as células primeiro!';
-        messageDisplay.className = 'message error';
-    } else if (isCorrect) {
-        messageDisplay.textContent = 'Parabéns! Solução correta!';
-        messageDisplay.className = 'message success';
-        endGame();
-    } else {
-        messageDisplay.textContent = 'Existem erros na sua solução.';
-        messageDisplay.className = 'message error';
+    if (hasEmptyCells) {
+        messageDisplay.textContent = 'Tabuleiro incompleto!';
+        messageDisplay.className = 'message info';
+        setTimeout(() => {
+            messageDisplay.textContent = 'Continue jogando...';
+            messageDisplay.className = 'message';
+        }, 2000);
+        return;
     }
-}
 
-export function solvePuzzle() {
-    if (getIsGameOver()) return;
+    if (correct) {
+        setIsGameOver(true); // Define o jogo como terminado
+        stopTimer(); // PARA O TEMPORIZADOR
+        const finalTime = getFormattedTime(); // OBTÉM O TEMPO FINAL
 
-    // Copia a solução para o tabuleiro do jogo
-    const currentSolution = getSolution();
-    const solvedBoard = JSON.parse(JSON.stringify(currentSolution)); // Copia profunda
-    setBoard(solvedBoard); // Atualiza o estado global
+        messageDisplay.textContent = `Parabéns! Você resolveu em ${finalTime}!`; // EXIBE O TEMPO FINAL
+        messageDisplay.className = 'message success'; // Adiciona classe para estilização
 
-    // Atualiza a exibição
-    renderGrid();
+        // Mantém a mensagem por 5 segundos antes de sugerir um novo jogo
+        setTimeout(() => {
+            messageDisplay.textContent = 'Clique em "Novo Jogo" para outra partida!';
+            messageDisplay.className = 'message'; // Reseta a classe
+        }, 5000);
 
-    messageDisplay.textContent = 'Sudoku resolvido!';
-    messageDisplay.className = 'message success';
-    endGame();
+    } else {
+        messageDisplay.textContent = 'Ainda há erros no tabuleiro!';
+        messageDisplay.className = 'message error';
+        errorCells.forEach(cell => cell.classList.add('error')); // Marca as células com erro
+        setTimeout(() => {
+            messageDisplay.textContent = 'Continue jogando...';
+            messageDisplay.className = 'message';
+            errorCells.forEach(cell => cell.classList.remove('error')); // Remove a marcação de erro após um tempo
+        }, 3000);
+    }
 }
 
 export function useHint() {
-    const currentSelectedCell = getSelectedCell(); // Obter a célula selecionada
-    const currentHints = getHints();
+    if (getIsGameOver()) return; // Não permitir dica se o jogo terminou
+    const currentHints = getHints(); // Obtém o número atual de dicas
 
     if (currentHints <= 0) {
-        messageDisplay.textContent = 'Você não tem mais dicas disponíveis!';
+        messageDisplay.textContent = 'Sem dicas restantes!';
         messageDisplay.className = 'message error';
+        setTimeout(() => {
+            messageDisplay.textContent = 'Continue jogando...';
+            messageDisplay.className = 'message';
+        }, 2000);
         return;
     }
 
-    if (getIsGameOver() || !currentSelectedCell) {
-        messageDisplay.textContent = 'Selecione uma célula vazia para usar uma dica.';
-        messageDisplay.className = 'message error';
+    const currentBoard = getBoard(); // Obtém o tabuleiro do estado
+    const currentSolution = getSolution(); // Obtém a solução do estado
+    const currentGivenCells = getGivenCells(); // Obtém as células dadas
+
+    let emptyCells = [];
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            // Verifica se a célula está vazia E não é uma célula dada (predefinida do puzzle)
+            if (currentBoard[r][c] === 0 && !currentGivenCells[r][c]) {
+                emptyCells.push({ r, c }); // Armazena apenas as coordenadas
+            }
+        }
+    }
+
+    if (emptyCells.length === 0) {
+        messageDisplay.textContent = 'Tabuleiro já completo!';
+        messageDisplay.className = 'message info';
+        setTimeout(() => {
+            messageDisplay.textContent = 'Continue jogando...';
+            messageDisplay.className = 'message';
+        }, 2000);
         return;
     }
 
-    const row = parseInt(currentSelectedCell.dataset.row);
-    const col = parseInt(currentSelectedCell.dataset.col);
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const { r, c } = emptyCells[randomIndex]; // Desestrutura as coordenadas
+    const cellElement = document.getElementById(`cell-${r}-${c}`); // Obtém o elemento da célula
 
-    const givenCells = getGivenCells();
-    const currentBoard = getBoard();
-    const solution = getSolution();
+    // Preenche a célula no estado e no DOM
+    currentBoard[r][c] = currentSolution[r][c]; // Atualiza o board no estado
+    // Não é necessário chamar setBoard(currentBoard) aqui, pois currentBoard já é uma referência
 
-    if (!givenCells[row][col] && currentBoard[row][col] === 0) {
-        currentBoard[row][col] = solution[row][col]; // Preenche a célula
-        setBoard(currentBoard); // Atualiza o estado global
+    cellElement.textContent = currentSolution[r][c];
+    cellElement.classList.add('hint-given'); // Adiciona uma classe para estilizar células com dica
+    setTimeout(() => {
+        cellElement.classList.remove('hint-given');
+    }, 1000);
 
-        currentSelectedCell.textContent = solution[row][col];
-        currentSelectedCell.classList.add('user-input');
-        currentSelectedCell.classList.remove('error');
+    decrementHints(); // CHAME A FUNÇÃO CORRETA PARA DECREMENTAR AS DICAS
+    const updatedHints = getHints(); // Obtenha o valor ATUALIZADO de dicas
 
-        decrementHints(); // Diminui o número de dicas
-        updateHintsDisplay(); // Atualiza a exibição das dicas
+    // Atualiza a exibição visual das dicas
+    const hintDivs = hintsContainer.querySelectorAll('.hint');
+    hintDivs.forEach((hintDiv, index) => {
+        if (index < updatedHints) {
+            hintDiv.classList.add('active');
+        } else {
+            hintDiv.classList.remove('active');
+        }
+    });
 
-        messageDisplay.textContent = 'Dica aplicada!';
+    messageDisplay.textContent = 'Dica usada!';
+    messageDisplay.className = 'message info';
+    setTimeout(() => {
+        messageDisplay.textContent = 'Continue jogando...';
         messageDisplay.className = 'message';
+    }, 1500);
+}
 
-        checkGameCompletion(); // Verifica se o jogo foi completado com a dica
-    } else {
-        messageDisplay.textContent = 'Selecione uma célula vazia para usar uma dica.';
-        messageDisplay.className = 'message error';
+export function solvePuzzle() {
+    if (getIsGameOver()) return; // Não resolver se o jogo já acabou
+
+    const currentBoard = getBoard(); // Obter o board do estado
+    const currentSolution = getSolution(); // Obter a solution do estado
+
+    // Preenche o tabuleiro com a solução no estado e no DOM
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            currentBoard[r][c] = currentSolution[r][c]; // Atualiza o board no estado
+            const cell = document.getElementById(`cell-${r}-${c}`);
+            cell.textContent = currentSolution[r][c] === 0 ? '' : currentSolution[r][c];
+            cell.classList.remove('user-input', 'selected', 'highlight-row-col', 'highlight-box', 'error');
+            cell.classList.add('solved');
+        }
     }
+
+    setIsGameOver(true); // Define o jogo como terminado
+    stopTimer(); // PARA O TEMPORIZADOR
+    const finalTime = getFormattedTime(); // OBTÉM O TEMPO FINAL
+
+    messageDisplay.textContent = `Jogo resolvido. Tempo final: ${finalTime}.`; // EXIBE O TEMPO FINAL
+    messageDisplay.className = 'message info';
+
+    // Mantém a mensagem por 5 segundos antes de sugerir um novo jogo
+    setTimeout(() => {
+        messageDisplay.textContent = 'Clique em "Novo Jogo" para outra partida!';
+        messageDisplay.className = 'message';
+    }, 5000);
 }

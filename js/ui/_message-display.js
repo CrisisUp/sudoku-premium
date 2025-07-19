@@ -16,6 +16,8 @@ export function updateHintsDisplay() {
     });
 }
 
+// checkGameCompletion está sendo chamada em _game-play.js
+// A lógica de final de jogo para checkSolution está em _game-actions.js, que a chama
 export function checkGameCompletion() {
     const currentBoard = getBoard();
     const currentSolution = getSolution();
@@ -27,7 +29,10 @@ export function checkGameCompletion() {
         }
     }
 
-    // Em seguida, verifica se a solução está correta
+    // Em seguida, verifica se a solução está correta (esta parte será feita em _game-actions.js)
+    // Se você quiser que o jogo termine automaticamente ao preencher,
+    // então a lógica de "isCorrect" deveria estar aqui e chamar endGame()
+    // No entanto, como o checkSolution() é manual, esta função apenas retorna true/false se completo
     let isCorrect = true;
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
@@ -38,18 +43,15 @@ export function checkGameCompletion() {
         }
         if (!isCorrect) break;
     }
-
-    if (isCorrect) {
-        messageDisplay.textContent = 'Parabéns! Você resolveu o Sudoku!';
-        messageDisplay.className = 'message success';
-        endGame();
-    }
-    return isCorrect;
+    // Se o jogo estiver completo e correto, a função checkSolution em _game-actions.js
+    // chamará endGame(), então não precisa aqui.
+    return isCorrect; // Retorna se o tabuleiro está completo E correto
 }
+
 
 export function endGame() {
     setIsGameOver(true);
-    resetTimer(); // Chama a função do timer para resetar e parar
+    resetTimer(); // Para e zera o timer
 
     const currentSelectedCell = getSelectedCell();
     if (currentSelectedCell) {
@@ -57,4 +59,5 @@ export function endGame() {
         highlightRelatedCells(currentSelectedCell, false);
         setSelectedCell(null); // Desseleciona a célula no estado
     }
+    // A mensagem de tempo final é tratada em _game-actions.js
 }

@@ -8,7 +8,7 @@ export function generatePuzzle() {
     // Primeiro, gere uma solução completa
     const currentSolution = Array(9).fill().map(() => Array(9).fill(0));
     generateSolution(currentSolution);
-    setSolution(currentSolution); // Salva a solução gerada
+    setSolution(currentSolution); // Salva a solução gerada no estado
 
     // Em seguida, crie um quebra-cabeça removendo números com base na dificuldade
     const difficulty = difficultySelect.value;
@@ -46,7 +46,7 @@ export function generatePuzzle() {
     const newGivenCells = Array(9).fill().map(() => Array(9).fill(false));
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
-            newGivenCells[i][j] = getBoard()[i][j] !== 0; // Usa o tabuleiro atualizado
+            newGivenCells[i][j] = getBoard()[i][j] !== 0; // Usa o tabuleiro atualizado para marcar as dadas
         }
     }
     setGivenCells(newGivenCells); // Atualiza o estado global das células dadas

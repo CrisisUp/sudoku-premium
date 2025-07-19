@@ -1,13 +1,14 @@
 // js/game/_timer.js
 
 import { timeDisplay } from '../utils/_dom-elements.js';
-import { getIsGameOver } from './_game-state.js'; // Importar getIsGameOver
+import { getIsGameOver } from './_game-state.js';
 
-let timerStartTime = null; // Variável interna para o início do timer
-let timerIntervalId = null; // Variável interna para o ID do intervalo
+let timerStartTime = null;
+let timerIntervalId = null;
+let currentFormattedTime = '00:00'; // Nova variável para armazenar o tempo formatado atual
 
 export function startTimer() {
-    if (timerIntervalId) clearInterval(timerIntervalId); // Garante que não há timer duplicado
+    if (timerIntervalId) clearInterval(timerIntervalId);
     timerStartTime = new Date();
     timerIntervalId = setInterval(updateTimer, 1000);
 }
@@ -15,21 +16,42 @@ export function startTimer() {
 export function resetTimer() {
     if (timerIntervalId) {
         clearInterval(timerIntervalId);
-        timerIntervalId = null; // Reseta o ID
+        timerIntervalId = null;
     }
     timeDisplay.textContent = '00:00';
-    timerStartTime = null; // Reseta o tempo de início
+    timerStartTime = null;
+    currentFormattedTime = '00:00'; // Reseta o tempo formatado também
 }
 
 function updateTimer() {
-    if (getIsGameOver() || !timerStartTime) { // Pára se o jogo terminou ou timer não iniciado
-        clearInterval(timerIntervalId);
-        timerIntervalId = null;
+    // A condição para parar o timer deve ser antes do cálculo, como já está
+    if (getIsGameOver() || !timerStartTime) {
+        if (timerIntervalId) {
+            clearInterval(timerIntervalId);
+            timerIntervalId = null;
+        }
         return;
     }
+
     const currentTime = new Date();
     const elapsed = new Date(currentTime - timerStartTime);
     const minutes = elapsed.getUTCMinutes().toString().padStart(2, '0');
     const seconds = elapsed.getUTCSeconds().toString().padStart(2, '0');
-    timeDisplay.textContent = `${minutes}:${seconds}`;
+
+    // Atualiza o display e armazena o tempo formatado
+    currentFormattedTime = `${minutes}:${seconds}`;
+    timeDisplay.textContent = currentFormattedTime;
+}
+
+// Exporta o tempo formatado atual
+export function getFormattedTime() {
+    return currentFormattedTime;
+}
+
+// Exporta uma forma de parar o timer explicitamente
+export function stopTimer() {
+    if (timerIntervalId) {
+        clearInterval(timerIntervalId);
+        timerIntervalId = null;
+    }
 }

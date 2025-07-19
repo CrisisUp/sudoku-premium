@@ -5,7 +5,7 @@ let solutionState = Array(9).fill().map(() => Array(9).fill(0));
 let givenCellsState = Array(9).fill().map(() => Array(9).fill(false));
 let selectedCellState = null;
 let isGameOverState = false;
-let hintsState = 3;
+let hintsState = 3; // Estado para a contagem de dicas
 
 // Getters
 export function getBoard() { return boardState; }
@@ -22,7 +22,7 @@ export function setGivenCells(newGivenCells) { givenCellsState = newGivenCells; 
 export function setSelectedCell(cell) { selectedCellState = cell; }
 export function setIsGameOver(status) { isGameOverState = status; }
 export function decrementHints() { hintsState--; }
-export function resetHints() { hintsState = 3; } // Adiciona função para resetar dicas
+export function resetHints() { hintsState = 3; } // Função para resetar dicas para o valor inicial
 
 // Função para resetar todo o estado do jogo
 export function resetGameState() {

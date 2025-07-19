@@ -2,7 +2,7 @@
 
 import { getBoard, getGivenCells, getSolution, getSelectedCell, setSelectedCell } from '../game/_game-state.js';
 import { gridElement } from '../utils/_dom-elements.js';
-import { handleCellClick } from '../game/_game-play.js';
+import { handleCellClick } from '../game/_game-play.js'; // Usado para gerenciar o clique na célula
 
 export function renderGrid() {
     gridElement.innerHTML = ''; // Limpa o grid antes de renderizar
@@ -18,22 +18,23 @@ export function renderGrid() {
             cell.dataset.row = i;
             cell.dataset.col = j;
             cell.tabIndex = 0; // Torna as células focáveis
+            cell.id = `cell-${i}-${j}`; // Adiciona ID para facilitar a seleção direta
 
             // Adiciona classes para separação visual de blocos 3x3
             if (i === 2 || i === 5) {
                 cell.classList.add('row-divider');
             }
-            if (j === 2 || j === 5) { // Adiciona separador de coluna também
-                cell.classList.add('col-divider'); // Você precisaria adicionar esse estilo no CSS
+            if (j === 2 || j === 5) { // Adiciona separador de coluna também (precisa de CSS)
+                cell.classList.add('col-divider');
             }
 
             if (currentBoard[i][j] !== 0) {
                 cell.textContent = currentBoard[i][j];
                 if (currentGivenCells[i][j]) {
-                    cell.classList.add('given');
+                    cell.classList.add('given'); // Célula pré-definida do puzzle
                 } else {
-                    cell.classList.add('user-input');
-                    // Marca erros se a entrada do usuário estiver errada
+                    cell.classList.add('user-input'); // Input do usuário
+                    // Marca erros se a entrada do usuário estiver errada (apenas para células preenchidas)
                     if (currentBoard[i][j] !== currentSolution[i][j]) {
                         cell.classList.add('error');
                     }
@@ -48,16 +49,15 @@ export function renderGrid() {
         }
     }
 
-    // Foca na primeira célula se nenhuma estiver selecionada
-    // Removendo o clique para evitar loop/problemas de focus. Apenas seleciona.
+    // Foca na primeira célula se nenhuma estiver selecionada ou re-seleciona a anterior
     const currentSelected = getSelectedCell();
     if (!currentSelected) {
         const firstCell = document.querySelector('.cell');
         if (firstCell) {
-            handleCellClick(firstCell); // Usa a função de clique para selecionar
+            handleCellClick(firstCell);
         }
     } else {
-        // Se já havia uma célula selecionada antes de renderizar, re-selecione-a
+        // Se já havia uma célula selecionada antes de renderizar, re-selecione-a no novo DOM
         const reselectCell = gridElement.querySelector(`.cell[data-row="${currentSelected.dataset.row}"][data-col="${currentSelected.dataset.col}"]`);
         if (reselectCell) {
              handleCellClick(reselectCell);

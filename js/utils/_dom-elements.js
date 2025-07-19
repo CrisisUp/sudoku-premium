@@ -10,4 +10,5 @@ export const numberBtns = document.querySelectorAll('.number-btn');
 export const timeDisplay = document.getElementById('time');
 export const messageDisplay = document.getElementById('message');
 export const hintElements = document.querySelectorAll('.hint');
-export const themeToggle = document.querySelector('.theme-toggle');
+export const themeToggle = document.querySelector('.theme-toggle'); // Usado por app.js e _home-script.js
+export const hintsContainer = document.querySelector('.hints');
